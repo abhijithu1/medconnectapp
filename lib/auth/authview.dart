@@ -9,11 +9,12 @@ class AuthPage extends StatelessWidget {
     final _screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
-          child: Container(
-            height: _screenheight,
-            width: _screenwidth,
-            child: ,
-          ),),
+        child: Container(
+          height: _screenheight,
+          width: _screenwidth,
+          child: Container(),
+        ),
+      ),
     );
   }
 }
