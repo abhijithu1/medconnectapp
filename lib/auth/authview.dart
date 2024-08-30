@@ -79,6 +79,13 @@ class AuthPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(
+                    height: 50,
+                    width: _screenwidth * 0.7,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Sign in'),
+                    ))
               ],
             ),
           ),
