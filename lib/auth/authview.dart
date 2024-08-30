@@ -5,6 +5,15 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final _screenheight = MediaQuery.of(context).size.height;
+    final _screenwidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: SafeArea(
+          child: Container(
+            height: _screenheight,
+            width: _screenwidth,
+            child: ,
+          ),),
+    );
   }
 }
