@@ -1,4 +1,5 @@
 import 'dart:convert'; // For jsonEncode
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -24,15 +25,16 @@ Future<void> getToken(String username, String password) async {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+
       String token =
           data['key']; // Adjust this depending on your API response structure
-      print('Token: $token');
+      debugPrint('Token: $token');
       await storage.write(key: 'auth_token', value: token);
-      print('Token stored securely.');
+      debugPrint('Token stored securely.');
     } else {
-      print('Error: ${response.statusCode}');
+      debugPrint('Error: ${response.statusCode}');
     }
   } catch (e) {
-    print('Exception: $e');
+    debugPrint('Exception: $e');
   }
 }
