@@ -1,45 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:medconnectapp/auth/authrequest.dart';
-
-class AuthController extends GetxController {
-  var usercntl = TextEditingController();
-  var passcntl = TextEditingController();
-
-  var isUserValid = true.obs;
-  var isPassValid = true.obs;
-
-  void validateUser() {
-    isUserValid.value = usercntl.text.isNotEmpty;
-  }
-
-  void validatePass() {
-    isPassValid.value = passcntl.text.isNotEmpty;
-  }
-
-  bool validateForm() {
-    validateUser();
-    validatePass();
-    return isUserValid.value && isPassValid.value;
-  }
-
-  @override
-  void onClose() {
-    usercntl.dispose();
-    passcntl.dispose();
-    super.onClose();
-  }
-}
+import 'package:mconnect/auth/authreq.dart';
 
 class AuthPage extends StatelessWidget {
-  AuthPage({super.key});
-
-  final AuthController _authController = Get.put(AuthController());
+  const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final _screenheight = MediaQuery.of(context).size.height;
     final _screenwidth = MediaQuery.of(context).size.width;
+    final _usercntl = TextEditingController();
+    final _passcntl = TextEditingController();
 
     return Scaffold(
       body: SafeArea(
@@ -63,67 +33,62 @@ class AuthPage extends StatelessWidget {
                 ),
                 Container(
                   height: _screenheight * 0.07031547,
-                  child: Obx(() => TextField(
-                        controller: _authController.usercntl,
-                        decoration: InputDecoration(
-                          filled: true,
-                          prefixIcon: Icon(Icons.person_2),
-                          fillColor: Colors.white,
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              borderSide: BorderSide(width: 0.1)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              borderSide: BorderSide(width: 0.5)),
-                          hintText: "Username",
-                          errorText: _authController.isUserValid.value
-                              ? null
-                              : "Username cannot be empty",
-                        ),
-                        onChanged: (value) => _authController.validateUser(),
-                      )),
+                  child: TextField(
+                    controller: _usercntl,
+                    decoration: InputDecoration(
+                      filled: true,
+                      prefixIcon: Icon(Icons.person_2),
+                      fillColor: Colors.white,
+
+                      // focusColor: AdvColors.loginfield,
+                      // hoverColor: AdvColors.loginfield,
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(35),
+                          borderSide: BorderSide(width: 0.1)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(35),
+                          borderSide: BorderSide(width: 0.5)),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(35),
+                      ),
+                      hintText: "Username",
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 Container(
                   height: _screenheight * 0.07031547,
-                  child: Obx(() => TextField(
-                        controller: _authController.passcntl,
-                        decoration: InputDecoration(
-                          filled: true,
-                          prefixIcon: Icon(Icons.key),
-                          fillColor: Colors.white,
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              borderSide: BorderSide(width: 0.1)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              borderSide: BorderSide(width: 0.5)),
-                          hintText: "Password",
-                          errorText: _authController.isPassValid.value
-                              ? null
-                              : "Password cannot be empty",
-                        ),
-                        obscureText: true,
-                        onChanged: (value) => _authController.validatePass(),
-                      )),
-                ),
-                SizedBox(
-                  height: 50,
+                  child: TextField(
+                    controller: _passcntl,
+                    decoration: InputDecoration(
+                      filled: true,
+                      prefixIcon: Icon(Icons.key),
+                      fillColor: Colors.white,
+                      // focusColor: AdvColors.loginfield,
+                      // hoverColor: AdvColors.loginfield,
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(35),
+                          borderSide: BorderSide(width: 0.1)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(35),
+                          borderSide: BorderSide(width: 0.5)),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(35),
+                      ),
+                      hintText: "Password",
+                    ),
+                  ),
                 ),
                 SizedBox(
                     height: 50,
                     width: _screenwidth * 0.7,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (_authController.validateForm()) {
-                          getToken(
-                              _authController.usercntl.text,
-                              _authController.passcntl.text);
-                        }
+                        getToken("admin", "nandu123");
                       },
-                      child: Text('Sign in'),
+                      child: Text('Sign In'),
                     ))
               ],
             ),
